@@ -72,6 +72,13 @@
             <span>Patients Record</span>
           </router-link>
           <router-link
+            to="/doctor/manageAccount"
+            v-if="isAuthenticate && account_type == 2"
+          >
+            <i class="fa-solid fa-address-card"></i>
+            <span>My Account</span>
+          </router-link>
+          <router-link
             to="/patient/appointment"
             v-if="isAuthenticate && account_type == 3"
           >
@@ -84,6 +91,13 @@
           >
             <i class="fa-solid fa-calendar-check"></i>
             <span>Medical Records</span>
+          </router-link>
+          <router-link
+            to="/patient/viewRecord"
+            v-if="isAuthenticate && account_type == 3"
+          >
+            <i class="fa-solid fa-circle-user"></i>
+            <span>Patient Record</span>
           </router-link>
           <router-link to="/logout" v-if="isAuthenticate">
             <i class="fa-solid fa-arrow-right-from-bracket"></i>

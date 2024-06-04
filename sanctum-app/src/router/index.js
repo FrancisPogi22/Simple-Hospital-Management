@@ -10,6 +10,8 @@ import DoctorManageAppointment from "../components/Doctor/ManageAppointment.vue"
 import ViewMedicalRecord from "../components/Admin/ViewMedicalRecord.vue";
 import DoctorMedicalRecord from "../components/Doctor/ViewMedicalRecord.vue";
 import PatientRecord from "../components/Doctor/PatientRecord.vue";
+import ManageAccount from "../components/Doctor/ManageAccount.vue";
+import RecordPatient from "../components/Patient/PatientRecord.vue";
 
 const isAuthenticated = () => {
   return localStorage.getItem("token");
@@ -26,14 +28,6 @@ const isDoctor = () => {
 const isPatient = () => {
   return localStorage.getItem("account_type") == 3;
 };
-
-// const authGuard = (to, from, next) => {
-//   if (isAuthenticated()) {
-//     next();
-//   } else {
-//     next(from);
-//   }
-// };
 
 const adminGuard = (to, from, next) => {
   if (isAuthenticated() && isAdmin()) {
@@ -106,6 +100,12 @@ const routes = [
     beforeEnter: doctorGuard,
   },
   {
+    path: "/doctor/manageAccount",
+    name: "doctor.manage.account",
+    component: ManageAccount,
+    beforeEnter: doctorGuard,
+  },
+  {
     path: "/doctor/managePatientRecord",
     name: "doctor.manage.patient.record",
     component: PatientRecord,
@@ -127,6 +127,12 @@ const routes = [
     path: "/patient/medicalRecords",
     name: "patient.medical.records",
     component: MedicalRecordPage,
+    beforeEnter: patientGuard,
+  },
+  {
+    path: "/patient/viewRecord",
+    name: "patient.record.patient",
+    component: RecordPatient,
     beforeEnter: patientGuard,
   },
   {

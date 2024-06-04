@@ -15,6 +15,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('login', [AuthenticationController::class, 'login']);
 
 Route::get('doctors', [DoctorController::class, 'doctors']);
+Route::get('getAccount/{id}', [DoctorController::class, 'getAccount']);
 Route::get('showDoctor/{id}', [DoctorController::class, 'showDoctor']);
 Route::post('registerDoctors', [DoctorController::class, 'registerDoctors']);
 Route::put('editDoctor/{id}', [DoctorController::class, 'editDoctor']);
@@ -26,6 +27,7 @@ Route::get('showPatient/{id}', [PatientController::class, 'showPatient']);
 Route::post('registerPatients', [PatientController::class, 'registerPatients']);
 Route::put('editPatient/{id}', [PatientController::class, 'editPatient']);
 Route::delete('deletePatient/{id}', [PatientController::class, 'deletePatient']);
+Route::delete('removePatient/{id}', [PatientController::class, 'removePatient']);
 
 Route::get('getAppointments/{id}', [AppointmentController::class, 'getAppointments']);
 Route::get('showAppointment/{id}', [AppointmentController::class, 'showAppointment']);

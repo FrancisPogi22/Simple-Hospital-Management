@@ -122,14 +122,25 @@ class DoctorController extends Controller
 
     public function removeDoctor($id)
     {
-        $doctor = $this->doctor->where('user_id', $id)->get();
+        $doctor = $this->doctor->where('user_id', $id)->first();
 
-        if ($doctor) {
+        if (!$doctor) {
             return response()->json(['message' => 'Doctor Already Removed.'], 401);
         }
 
         $doctor->delete();
 
         return response()->json(['message' => 'Successfully Removed.'], 200);
+    }
+
+    public function getAccount($id)
+    {
+        $account = DB::table('doctor as d')
+            ->join('users as u', 'u.id', '=', 'd.user_id')
+            ->select('d.*', 'u.*')
+            ->where('u.id', $id)
+            ->first();
+
+        return response()->json($account, 200);
     }
 }

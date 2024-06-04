@@ -5,6 +5,7 @@ export default createStore({
     apiUrl: "http://127.0.0.1:8000/api",
     doctors: [],
     doctor: [],
+    account: [],
     appointments: [],
     appointment: [],
     record: [],
@@ -24,6 +25,16 @@ export default createStore({
     },
     getMedicalRecords(state) {
       return state.records;
+    },
+    getAccount: (state) => (id) => {
+      return axios
+        .get(state.apiUrl + "/getAccount/" + id)
+        .then((response) => {
+          state.account = response.data;
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
     },
     getAppointment: (state) => (id) => {
       return axios
@@ -49,8 +60,6 @@ export default createStore({
       return axios
         .get(state.apiUrl + "/showDoctor/" + id)
         .then((response) => {
-        console.log(response.data)
-
           state.doctor = response.data;
         })
         .catch((error) => {
@@ -70,6 +79,9 @@ export default createStore({
     },
   },
   mutations: {
+    setAccount(state, account) {
+      state.account = account;
+    },
     setDoctors(state, doctors) {
       state.doctors = doctors;
     },
@@ -126,9 +138,21 @@ export default createStore({
     },
   },
   actions: {
+    async fetchAccount({ state, commit }, doctorId) {
+      try {
+        const response = await axios.get(
+          state.apiUrl + "/getAccount/" + doctorId
+        );
+        commit("setAccount", response.data);
+      } catch (error) {
+        alert("Error fetching doctors: " + error.message);
+      }
+    },
     async fetchMedicals({ state, commit }, doctorId) {
       try {
-        const response = await axios.get(state.apiUrl + "/getAllDoctorMedicals/" + doctorId);
+        const response = await axios.get(
+          state.apiUrl + "/getAllDoctorMedicals/" + doctorId
+        );
         commit("setMedicalRecords", response.data);
       } catch (error) {
         alert("Error fetching doctors: " + error.message);
@@ -136,7 +160,9 @@ export default createStore({
     },
     async fetchAllMedicals({ state, commit }, userId) {
       try {
-        const response = await axios.get(state.apiUrl + "/viewMedicalRecords/" + userId);
+        const response = await axios.get(
+          state.apiUrl + "/viewMedicalRecords/" + userId
+        );
         commit("setMedicalRecords", response.data);
       } catch (error) {
         alert("Error fetching doctors: " + error.message);
@@ -153,7 +179,6 @@ export default createStore({
     async fetchPatients({ state, commit }) {
       try {
         const response = await axios.get(state.apiUrl + "/patients");
-        console.log(response.data);
         commit("setPatients", response.data);
       } catch (error) {
         alert("Error fetching products: " + error.message);

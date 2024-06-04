@@ -20,11 +20,7 @@ class PatientController extends Controller
 
     public function patients()
     {
-        $patients = DB::table('users as u')
-            ->join('patient as p', 'u.id', '=', 'p.user_id')
-            ->select('u.*', 'p.*')
-            ->where('u.account_type', 3)
-            ->get();
+        $patients = $this->users->where('account_type', 3)->get();
 
         return response()->json($patients, 200);
     }
@@ -34,8 +30,12 @@ class PatientController extends Controller
         $patient = DB::table('patient as p')
             ->join('users as u', 'u.id', '=', 'p.user_id')
             ->select('p.*', 'u.*')
-            ->where('p.id', $id)
+            ->where('p.user_id', $id)
             ->first();
+
+        if (!$patient) {
+            $patient = $this->users->find($id);
+        }
 
         return response()->json($patient, 200);
     }
@@ -117,6 +117,19 @@ class PatientController extends Controller
     public function deletePatient($id)
     {
         $this->users->find($id)->delete();
+
+        return response()->json(['message' => 'Successfully Removed.'], 200);
+    }
+
+    public function removePatient($id)
+    {
+        $patient = $this->patient->where('user_id', $id)->first();
+
+        if (!$patient) {
+            return response()->json(['message' => 'Patient Already Removed.'], 401);
+        }
+
+        $patient->delete();
 
         return response()->json(['message' => 'Successfully Removed.'], 200);
     }
