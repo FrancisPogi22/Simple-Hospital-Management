@@ -12,11 +12,7 @@ class Doctor extends Model
     protected $table = 'doctor';
 
     protected $fillable = [
-        'fullname',
-        'address',
-        'contact',
-        'email',
-        'password',
-        'account_type',
+        'type',
+        'user_id',
     ];
 }

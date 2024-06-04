@@ -5,6 +5,10 @@ export default createStore({
     apiUrl: "http://127.0.0.1:8000/api",
     doctors: [],
     doctor: [],
+    appointments: [],
+    appointment: [],
+    record: [],
+    records: [],
     patients: [],
     patient: [],
   },
@@ -15,10 +19,38 @@ export default createStore({
     getPatients(state) {
       return state.patients;
     },
+    getAppointments(state) {
+      return state.appointments;
+    },
+    getMedicalRecords(state) {
+      return state.records;
+    },
+    getAppointment: (state) => (id) => {
+      return axios
+        .get(state.apiUrl + "/showAppointment/" + id)
+        .then((response) => {
+          state.appointment = response.data;
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    },
+    getMedicalRecord: (state) => (id) => {
+      return axios
+        .get(state.apiUrl + "/showMedicalRecords/" + id)
+        .then((response) => {
+          state.record = response.data;
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
+    },
     getDoctor: (state) => (id) => {
       return axios
         .get(state.apiUrl + "/showDoctor/" + id)
         .then((response) => {
+        console.log(response.data)
+
           state.doctor = response.data;
         })
         .catch((error) => {
@@ -29,6 +61,7 @@ export default createStore({
       return axios
         .get(state.apiUrl + "/showPatient/" + id)
         .then((response) => {
+          console.log(response.data);
           state.patient = response.data;
         })
         .catch((error) => {
@@ -42,6 +75,15 @@ export default createStore({
     },
     setPatients(state, patients) {
       state.patients = patients;
+    },
+    setMedicalRecords(state, records) {
+      state.records = records;
+    },
+    setAppointments(state, appointments) {
+      state.appointments = appointments;
+    },
+    updateDoctorType(state, doctorType) {
+      state.doctor.type = doctorType;
     },
     updateDoctorFullName(state, doctorFullName) {
       state.doctor.fullname = doctorFullName;
@@ -67,8 +109,39 @@ export default createStore({
     updatePatientEmail(state, patientEmail) {
       state.patient.email = patientEmail;
     },
+    updatePatientBirthday(state, patientBirthday) {
+      state.patient.birthday = patientBirthday;
+    },
+    updatePatientWeight(state, patientWeight) {
+      state.patient.weight = patientWeight;
+    },
+    updatePatientHeight(state, patientHeight) {
+      state.patient.height = patientHeight;
+    },
+    updateWeight(state, patientWeight) {
+      state.record.weight = patientWeight;
+    },
+    updateHeight(state, patientHeight) {
+      state.record.height = patientHeight;
+    },
   },
   actions: {
+    async fetchMedicals({ state, commit }, doctorId) {
+      try {
+        const response = await axios.get(state.apiUrl + "/getAllDoctorMedicals/" + doctorId);
+        commit("setMedicalRecords", response.data);
+      } catch (error) {
+        alert("Error fetching doctors: " + error.message);
+      }
+    },
+    async fetchAllMedicals({ state, commit }, userId) {
+      try {
+        const response = await axios.get(state.apiUrl + "/viewMedicalRecords/" + userId);
+        commit("setMedicalRecords", response.data);
+      } catch (error) {
+        alert("Error fetching doctors: " + error.message);
+      }
+    },
     async fetchDoctors({ state, commit }) {
       try {
         const response = await axios.get(state.apiUrl + "/doctors");
@@ -80,9 +153,38 @@ export default createStore({
     async fetchPatients({ state, commit }) {
       try {
         const response = await axios.get(state.apiUrl + "/patients");
+        console.log(response.data);
         commit("setPatients", response.data);
       } catch (error) {
         alert("Error fetching products: " + error.message);
+      }
+    },
+    async fetchDoctorAppointments({ state, commit }, doctorId) {
+      try {
+        const response = await axios.get(
+          state.apiUrl + "/getDoctorAppointments/" + doctorId
+        );
+        commit("setAppointments", response.data);
+      } catch (error) {
+        alert("Error fetching doctors: " + error.message);
+      }
+    },
+    async fetchAppointments({ state, commit }, userId) {
+      try {
+        const response = await axios.get(
+          state.apiUrl + "/getAppointments/" + userId
+        );
+        commit("setAppointments", response.data);
+      } catch (error) {
+        alert("Error fetching doctors: " + error.message);
+      }
+    },
+    async fetchAllAppointments({ state, commit }) {
+      try {
+        const response = await axios.get(state.apiUrl + "/getAllAppointments/");
+        commit("setAppointments", response.data);
+      } catch (error) {
+        alert("Error fetching doctors: " + error.message);
       }
     },
     updateDoctorFullName({ commit }, doctorFullName) {

@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import HeaderPage from "../../partials/HeaderPage.vue";
-import Sidebar from "../../partials/Sidebar.vue";
+import HeaderPage from "../partials/HeaderPage.vue";
+import Sidebar from "../partials/Sidebar.vue";
 
 export default {
   data() {

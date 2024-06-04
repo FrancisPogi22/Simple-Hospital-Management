@@ -7,11 +7,32 @@
       </div>
       <div class="sidebar-nav-con">
         <ul class="sidebar-nav">
-          <router-link to="/admin/dashboard">
+          <div class="sidebar-details">
+            <p>
+              {{
+                account_type == 1
+                  ? "Admin"
+                  : account_type == 2
+                  ? "Doctor"
+                  : "Patient"
+              }}
+            </p>
+          </div>
+          <router-link to="/dashboard">
             <i class="fa-solid fa-tv"></i>
             <span>Dashboard</span>
           </router-link>
-          <router-link to="/admin/manageDoctors" v-if="isAuthenticate && account_type == 1">
+          <router-link
+            to="/admin/viewAppointments"
+            v-if="isAuthenticate && account_type == 1"
+          >
+            <i class="fa-solid fa-calendar-check"></i>
+            <span>Appointments</span>
+          </router-link>
+          <router-link
+            to="/admin/manageDoctors"
+            v-if="isAuthenticate && account_type == 1"
+          >
             <i class="fa-solid fa-user-doctor"></i>
             <span>Manage Doctors</span>
           </router-link>
@@ -23,11 +44,18 @@
             <span>Manage Patients</span>
           </router-link>
           <router-link
-            to="/doctor/patientRecords"
+            to="/admin/medicalRecords"
+            v-if="isAuthenticate && account_type == 1"
+          >
+            <i class="fa-solid fa-file-medical"></i>
+            <span>Medical Records</span>
+          </router-link>
+          <router-link
+            to="/doctor/medicalRecord"
             v-if="isAuthenticate && account_type == 2"
           >
             <i class="fa-solid fa-book"></i>
-            <span>Patient Record</span>
+            <span>Medical Record</span>
           </router-link>
           <router-link
             to="/doctor/manageAppointments"
@@ -37,23 +65,30 @@
             <span>Appointments</span>
           </router-link>
           <router-link
-            to="/patient/appointments"
+            to="/doctor/managePatientRecord"
+            v-if="isAuthenticate && account_type == 2"
+          >
+            <i class="fa-solid fa-hospital-user"></i>
+            <span>Patients Record</span>
+          </router-link>
+          <router-link
+            to="/patient/appointment"
             v-if="isAuthenticate && account_type == 3"
           >
             <i class="fa-solid fa-calendar-check"></i>
             <span>Appointments</span>
           </router-link>
           <router-link
-            to="/patient/viewMedicalRecords"
+            to="/patient/medicalRecords"
             v-if="isAuthenticate && account_type == 3"
           >
             <i class="fa-solid fa-calendar-check"></i>
             <span>Medical Records</span>
           </router-link>
-          <a href="" v-if="isAuthenticate">
+          <router-link to="/logout" v-if="isAuthenticate">
             <i class="fa-solid fa-arrow-right-from-bracket"></i>
             <span>Logout</span>
-          </a>
+          </router-link>
         </ul>
       </div>
     </div>
@@ -124,6 +159,27 @@ export default {
   display: flex;
   align-items: center;
   gap: 20px;
+}
+
+#sidebar:hover .sidebar-details {
+  opacity: 1;
+  visibility: visible;
+}
+
+#sidebar .sidebar-details {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s, visibility 0.3s;
+  opacity: 0;
+  background: #0061ff;
+  visibility: hidden;
+}
+
+#sidebar .sidebar-details p {
+  font-weight: 600;
+  color: var(--global-color-white);
 }
 
 #sidebar .sidebar-nav a:hover {

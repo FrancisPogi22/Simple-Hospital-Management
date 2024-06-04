@@ -10,12 +10,8 @@ return new class extends Migration
     {
         Schema::create('doctor', function (Blueprint $table) {
             $table->id();
-            $table->string('fullname');
-            $table->string('address')->nullable();
-            $table->string('contact')->nullable();
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->tinyInteger('account_type')->default(2);
+            $table->string('type');
+            $table->foreignId('user_id')->references('id')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }

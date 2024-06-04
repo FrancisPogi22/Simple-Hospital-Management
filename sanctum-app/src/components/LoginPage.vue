@@ -1,15 +1,15 @@
 <template>
-  <section id="admin">
+  <section id="login">
     <div class="wrapper">
-      <div class="admin-container">
-        <div class="admin-details">
+      <div class="login-container">
+        <div class="login-details">
           <h1>Hospital <span>Management</span> System</h1>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, velit
             hic deleniti voluptatum veniam ea.
           </p>
         </div>
-        <form @submit.prevent="loginAdmin">
+        <form @submit.prevent="loginUser">
           <div class="field-con">
             <input
               type="email"
@@ -54,9 +54,9 @@ export default {
     };
   },
   methods: {
-    async loginAdmin() {
+    async loginUser() {
       try {
-        const response = await axios.post(this.$store.state.apiUrl + "/adminLogin", {
+        const response = await axios.post(this.$store.state.apiUrl + "/login", {
           email: this.email,
           password: this.password,
         });
@@ -68,7 +68,7 @@ export default {
             "account_type",
             JSON.stringify(response.data.account_type)
           );
-            this.$router.push("/admin/dashboard");
+            this.$router.push("/dashboard");
         }
       } catch (error) {
         this.errors = error.response.data.message;
@@ -82,14 +82,14 @@ export default {
 </script>
   
 <style scoped>
-#admin {
+#login {
   height: 100vh;
   position: relative;
   margin: 0;
   padding: 0;
 }
 
-#admin::before {
+#login::before {
   content: "";
   position: absolute;
   top: 0;
@@ -102,7 +102,7 @@ export default {
   z-index: -2;
 }
 
-#admin::after {
+#login::after {
   content: "";
   position: absolute;
   top: 0;
@@ -113,37 +113,37 @@ export default {
   z-index: -1;
 }
 
-#admin > * {
+#login > * {
   position: relative;
   z-index: 1;
 }
 
-#admin .wrapper {
+#login .wrapper {
   max-width: 1440px;
 }
 
-#admin .admin-container {
+#login .login-container {
   display: flex;
   justify-content: center;
   gap: 100px;
   align-items: center;
 }
 
-#admin .admin-details {
+#login .login-details {
   max-width: 500px;
   width: 100%;
 }
 
-#admin .admin-details h1,
-#admin .admin-details p {
+#login .login-details h1,
+#login .login-details p {
   color: var(--global-color-white);
 }
 
-#admin .admin-details h1 span {
+#login .login-details h1 span {
   color: var(--global-color-primary);
 }
 
-#admin .admin-container form {
+#login .login-container form {
   max-width: 500px;
   width: 100%;
   padding: 20px;
@@ -152,7 +152,7 @@ export default {
 }
 
 @media screen and (max-width: 767px) {
-  #admin .admin-container {
+  #login .login-container {
     padding: 100px 0;
     text-align: center;
     gap: 50px;
@@ -161,7 +161,7 @@ export default {
 }
 
 @media screen and (min-width: 768px) {
-  #admin .admin-container {
+  #login .login-container {
     padding: 100px 0;
     text-align: center;
     gap: 50px;
@@ -170,7 +170,7 @@ export default {
 }
 
 @media screen and (min-width: 1024px) {
-  #admin .admin-container {
+  #login .login-container {
     flex-direction: row;
     padding: 200px 0;
     text-align: left;

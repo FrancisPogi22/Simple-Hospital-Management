@@ -78,7 +78,11 @@ export default {
         );
 
         if (response.status === 200) {
-          alert(response.data.message);
+          this.$swal.fire({
+            title: "Success!",
+            text: response.data.message,
+            icon: "success",
+          });
           this.openClose = !this.openClose;
           this.$emit("update:visible", false);
           this.$emit("modal-closed");

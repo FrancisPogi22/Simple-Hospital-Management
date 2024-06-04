@@ -38,6 +38,7 @@
                     </option>
                     <option value="Edit">Edit</option>
                     <option value="Delete">Delete</option>
+                    <option value="Remove">Remove Doctor</option>
                   </select>
                 </td>
               </tr>
@@ -61,6 +62,7 @@ import Sidebar from "../../partials/Sidebar.vue";
 import AddDoctor from "./modals/AddDoctor.vue";
 import EditDoctor from "./modals/EditDoctor.vue";
 import DeleteDoctor from "./modals/DeleteDoctor.vue";
+import axios from "axios";
 
 export default {
   data() {
@@ -92,6 +94,8 @@ export default {
         this.toggleDeleteDoctor(id);
       } else if (selectedAction === "Edit") {
         this.toggleEditDoctor(id);
+      } else if (selectedAction === "Remove") {
+        this.toggleRemoveDoctor(id);
       }
     },
     toggleAddDoctor() {
@@ -119,6 +123,44 @@ export default {
         this.resetSelectAction();
         this.$store.dispatch("fetchDoctors");
       }
+    },
+    toggleRemoveDoctor(id) {
+      this.$swal
+        .fire({
+          text: "Are you sure you want to ungrant this doctor?",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, Remove it!",
+        })
+        .then(async (result) => {
+          if (result.isConfirmed) {
+            try {
+              const response = await axios.delete(
+                this.$store.state.apiUrl + "/removeDoctor/" + id,
+                {}
+              );
+
+              if (response.status === 200) {
+                this.$swal.fire({
+                  title: "Verified!",
+                  text: response.data.message,
+                  icon: "success",
+                });
+                this.resetSelectAction();
+                this.$store.dispatch("fetchDoctors");
+              }
+            } catch (error) {
+              this.$swal.fire({
+                title: "Error!",
+                text: error.response.data.message,
+                icon: "error",
+              });
+              this.resetSelectAction();
+            }
+          }
+        });
     },
     resetSelectAction() {
       this.selectedAction = "";

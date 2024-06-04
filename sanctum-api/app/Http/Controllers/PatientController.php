@@ -3,28 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Models\Patient;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class PatientController extends Controller
 {
-    private $patient;
+    private $users, $patient;
 
     public function __construct()
     {
         $this->patient = new Patient;
+        $this->users = new User;
     }
 
     public function patients()
     {
-        $patients = $this->patient->all();
+        $patients = DB::table('users as u')
+            ->join('patient as p', 'u.id', '=', 'p.user_id')
+            ->select('u.*', 'p.*')
+            ->where('u.account_type', 3)
+            ->get();
 
         return response()->json($patients, 200);
     }
 
     public function showPatient($id)
     {
-        $patient = $this->patient->find($id);
+        $patient = DB::table('patient as p')
+            ->join('users as u', 'u.id', '=', 'p.user_id')
+            ->select('p.*', 'u.*')
+            ->where('p.id', $id)
+            ->first();
 
         return response()->json($patient, 200);
     }
@@ -33,6 +44,9 @@ class PatientController extends Controller
     {
         $request->validate(
             [
+                'birthday' => 'required',
+                'weight' => 'required',
+                'height' => 'required',
                 'fullname' => 'required',
                 'email' => 'required|email|unique:users,email',
                 'address' => 'required',
@@ -46,13 +60,20 @@ class PatientController extends Controller
             ]
         );
 
-        $this->patient->create([
+        $patient = $this->users->create([
             'fullname' => trim($request->fullname),
             'email' => trim($request->email),
             'address' => trim($request->address),
             'contact' => trim($request->contact),
             'account_type' => 3,
             'password' => Hash::make($request->password),
+        ]);
+
+        $this->patient->create([
+            'birthday' => $request->birthday,
+            'weight' => $request->weight,
+            'height' => $request->height,
+            'user_id' => $patient->id,
         ]);
 
         return response()->json(['message' => 'Successfully Registered.'], 201);
@@ -64,10 +85,14 @@ class PatientController extends Controller
             'fullname' => 'required',
             'address' => 'required',
             'contact' => 'required',
+            'birthday' => 'required',
+            'weight' => 'required',
+            'height' => 'required',
             'email' => 'required|email|unique:users,email,' . $id,
         ]);
 
-        $patient = $this->patient::find($id)->first();
+        $patient = $this->users->find($id);
+        $patientdata = $this->patient->where('user_id', $id)->first();
 
         if (!$patient) {
             return response()->json(['message' => 'Patient not found'], 404);
@@ -80,13 +105,19 @@ class PatientController extends Controller
             'email' => $request->email,
         ]);
 
+        $patientdata->update([
+            'birthday' => $request->birthday,
+            'weight' => $request->weight,
+            'height' => $request->height,
+        ]);
+
         return response()->json(['message' => 'Successfully Edited.'], 200);
     }
 
     public function deletePatient($id)
     {
-        $this->patient->find($id)->delete();
+        $this->users->find($id)->delete();
 
-        return response()->json([['message' => 'Successfully Removed.']], 200);
+        return response()->json(['message' => 'Successfully Removed.'], 200);
     }
 }

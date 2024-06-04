@@ -12,6 +12,18 @@
         <div class="modal-body">
           <form @submit.prevent="registerDoctors">
             <div class="field-con">
+              <select name="type" v-model="type">
+                <option value="" selected hidden disabled>
+                  Select Type
+                </option>
+                <option value="Surgeons">Surgeons</option>
+                <option value="Physician">Physician</option>
+              </select>
+              <small class="text-danger" v-if="errors.type">{{
+                errors.type[0]
+              }}</small>
+            </div>
+            <div class="field-con">
               <input
                 type="text"
                 name="fullname"
@@ -110,7 +122,7 @@ export default {
   name: "AddDoctor",
   data() {
     return {
-      users: [],
+      type: "",
       fullname: "",
       contact: "",
       email: "",
@@ -135,6 +147,7 @@ export default {
         const response = await axios.post(
           this.$store.state.apiUrl + "/registerDoctors",
           {
+            type: this.type,
             fullname: this.fullname,
             contact: this.contact,
             email: this.email,
@@ -145,7 +158,12 @@ export default {
         );
 
         if (response.status === 201) {
-          alert(response.data.message);
+          this.$swal.fire({
+            title: "Success!",
+            text: response.data.message,
+            icon: "success",
+          });
+          this.type = "";
           this.fullname = "";
           this.contact = "";
           this.email = "";

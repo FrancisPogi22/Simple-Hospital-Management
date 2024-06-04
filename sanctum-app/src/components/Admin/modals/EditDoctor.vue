@@ -11,6 +11,23 @@
       <div class="modal-content">
         <div class="modal-body">
           <div class="field-con">
+            <select name="type" v-model="this.$store.state.doctor.type">
+              <option value="" selected hidden disabled>Select Type</option>
+              <option
+                value="Surgeons"
+                :selected="this.$store.state.doctor.type == 'Surgeons'"
+              >
+                Surgeons
+              </option>
+              <option
+                value="Physician"
+                :selected="this.$store.state.doctor.type == 'Physician'"
+              >
+                Physician
+              </option>
+            </select>
+          </div>
+          <div class="field-con">
             <input
               type="text"
               id="fullname"
@@ -69,6 +86,7 @@ export default {
   data() {
     return {
       openClose: this.visible,
+      type: this.$store.state.doctor.type,
       fullname: this.$store.state.doctor.fullname,
       address: this.$store.state.doctor.address,
       contact: this.$store.state.doctor.contact,
@@ -80,14 +98,29 @@ export default {
     visible: Boolean,
   },
   methods: {
+    updateDoctorType() {
+      this.$store.dispatch(
+        "updateDoctorType",
+        this.$store.state.doctor.type
+      );
+    },
     updateDoctorFullName() {
-      this.$store.dispatch("updateDoctorFullName", this.$store.state.doctor.fullname);
+      this.$store.dispatch(
+        "updateDoctorFullName",
+        this.$store.state.doctor.fullname
+      );
     },
     updateAddress() {
-      this.$store.dispatch("updateDoctorAddress", this.$store.state.doctor.address);
+      this.$store.dispatch(
+        "updateDoctorAddress",
+        this.$store.state.doctor.address
+      );
     },
     updateContact() {
-      this.$store.dispatch("updateDoctorContact", this.$store.state.doctor.contact);
+      this.$store.dispatch(
+        "updateDoctorContact",
+        this.$store.state.doctor.contact
+      );
     },
     updateEmail() {
       this.$store.dispatch("updateDoctorEmail", this.$store.state.doctor.email);
@@ -99,6 +132,7 @@ export default {
             "/editDoctor/" +
             this.$store.state.doctor.id,
           {
+            type: this.$store.state.doctor.type,
             fullname: this.$store.state.doctor.fullname,
             address: this.$store.state.doctor.address,
             contact: this.$store.state.doctor.contact,
@@ -107,7 +141,11 @@ export default {
         );
 
         if (response.status === 200) {
-          alert(response.data.message);
+          this.$swal.fire({
+            title: "Success!",
+            text: response.data.message,
+            icon: "success",
+          });
           this.openClose = !this.openClose;
           this.$emit("update:visible", false);
           this.$emit("modal-closed");

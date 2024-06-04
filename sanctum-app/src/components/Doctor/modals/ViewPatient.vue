@@ -4,7 +4,7 @@
     class="modal fade show"
     tabindex="-1"
     aria-hidden="true"
-    id="viewProduct"
+    id="editDoctor"
     style="display: block"
   >
     <div class="modal-dialog">
@@ -13,51 +13,64 @@
           <div class="field-con">
             <input
               type="text"
-              id="doctorFullName"
-              v-model="this.$store.state.doctor.fullname"
-              readonly
+              v-model="this.$store.state.patient.fullname"
+              disabled
             />
           </div>
           <div class="field-con">
             <input
               type="text"
-              id="doctorAddress"
-              v-model="this.$store.state.doctor.address"
-              readonly
+              v-model="this.$store.state.patient.address"
+              disabled
             />
           </div>
           <div class="field-con">
             <input
               type="text"
-              id="doctorContact"
-              v-model="this.$store.state.doctor.contact"
-              readonly
+              v-model="this.$store.state.patient.contact"
+              disabled
+            />
+          </div>
+          <div class="field-con">
+            <input
+              type="email"
+              v-model="this.$store.state.patient.email"
+              disabled
+            />
+          </div>
+          <div class="field-con">
+            <input
+              type="date"
+              v-model="this.$store.state.patient.birthday"
+              disabled
             />
           </div>
           <div class="field-con">
             <input
               type="text"
-              id="doctorEmail"
-              v-model="this.$store.state.doctor.email"
-              readonly
+              v-model="this.$store.state.patient.weight"
+              disabled
+            />
+          </div>
+          <div class="field-con">
+            <input
+              type="text"
+              v-model="this.$store.state.patient.height"
+              disabled
             />
           </div>
         </div>
         <div class="modal-footer">
           <button class="btn-secondary" @click="CloseModal()">Close</button>
-          <button type="button" @click="RemoveDoctor()" class="btn btn-primary">
-            Delete
-          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
-  
-  <script>
-import axios from "axios";
+      
+    <script>
 export default {
-  name: "DeleteDoctor",
+  name: "ViewPatient",
   data() {
     return {
       openClose: this.visible,
@@ -68,29 +81,6 @@ export default {
     visible: Boolean,
   },
   methods: {
-    async RemoveDoctor() {
-      try {
-        const response = await axios.delete(
-          this.$store.state.apiUrl +
-            "/deleteDoctor/" +
-            this.$store.state.doctor.id,
-          {}
-        );
-
-        if (response.status === 200) {
-          this.$swal.fire({
-            title: "Success!",
-            text: response.data.message,
-            icon: "success",
-          });
-          this.openClose = !this.openClose;
-          this.$emit("update:visible", false);
-          this.$emit("modal-closed");
-        }
-      } catch (error) {
-        alert(error.response.data.message);
-      }
-    },
     CloseModal() {
       this.openClose = !this.openClose;
       this.$emit("update:visible", false);

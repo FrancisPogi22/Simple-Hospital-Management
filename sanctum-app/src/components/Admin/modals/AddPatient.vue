@@ -41,6 +41,46 @@
             <div class="field-con">
               <input
                 type="text"
+                name="weight"
+                id="weight"
+                v-model="weight"
+                class="form-control"
+                placeholder="Weight"
+                required
+              />
+              <small class="text-danger" v-if="errors.weight">{{
+                errors.weight[0]
+              }}</small>
+            </div>
+            <div class="field-con">
+              <input
+                type="text"
+                name="height"
+                id="height"
+                v-model="height"
+                class="form-control"
+                placeholder="Height"
+                required
+              />
+              <small class="text-danger" v-if="errors.height">{{
+                errors.height[0]
+              }}</small>
+            </div>
+            <div class="field-con">
+              <input
+                type="date"
+                name="birthday"
+                id="birthday"
+                v-model="birthday"
+                class="form-control"
+              />
+              <small class="text-danger" v-if="errors.birthday">{{
+                errors.birthday[0]
+              }}</small>
+            </div>
+            <div class="field-con">
+              <input
+                type="text"
                 name="address"
                 id="address"
                 v-model="address"
@@ -109,7 +149,10 @@ export default {
   data() {
     return {
       users: [],
+      birthday: "",
       fullname: "",
+      weight: "",
+      height: "",
       contact: "",
       email: "",
       address: "",
@@ -133,8 +176,11 @@ export default {
         const response = await axios.post(
           this.$store.state.apiUrl + "/registerPatients",
           {
-            contact: this.contact,
             fullname: this.fullname,
+            weight: this.weight,
+            height: this.height,
+            birthday: this.birthday,
+            contact: this.contact,
             email: this.email,
             address: this.address,
             password: this.password,
@@ -143,8 +189,15 @@ export default {
         );
 
         if (response.status === 201) {
-          alert(response.data.message);
+          this.$swal.fire({
+            title: "Success!",
+            text: response.data.message,
+            icon: "success",
+          });
+          this.birthday = "";
           this.contact = "";
+          this.weight = "";
+          this.height = "";
           this.fullname = "";
           this.email = "";
           this.address = "";

@@ -22,7 +22,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="patient in patients" :key="patient.id">
+              <tr v-for="patient in patients" :key="patient.user_id">
                 <td>{{ patient.fullname }}</td>
                 <td>{{ patient.email }}</td>
                 <td>{{ patient.contact }}</td>
@@ -37,7 +37,7 @@
                       Select Action
                     </option>
                     <option value="Edit">Edit</option>
-                    <option value="Delete">Delete</option>
+                    <option value="View">View</option>
                   </select>
                 </td>
               </tr>
@@ -46,24 +46,19 @@
         </div>
       </div>
     </div>
-    <AddPatient
-      :visible="showPatientModal"
-      @update:visible="toggleAddPatient"
+    <ViewPatient
+      :visible="showViewPatientModal"
+      @update:visible="toggleViewPatient"
     />
     <EditPatient :visible="showEditModal" @update:visible="toggleEditPatient" />
-    <DeletePatient
-      :visible="showDeletePatient"
-      @update:visible="toggleDeletePatient"
-    />
   </section>
 </template>
-
-<script>
+  
+  <script>
 import HeaderPage from "../../partials/HeaderPage.vue";
 import Sidebar from "../../partials/Sidebar.vue";
-import AddPatient from "./modals/AddPatient.vue";
 import EditPatient from "./modals/EditPatient.vue";
-import DeletePatient from "./modals/DeletePatient.vue";
+import ViewPatient from "./modals/ViewPatient.vue";
 
 export default {
   data() {
@@ -71,15 +66,14 @@ export default {
       selectedAction: "",
       showPatientModal: false,
       showEditModal: false,
-      showDeletePatient: false,
+      showViewPatientModal: false,
     };
   },
   components: {
     HeaderPage,
     Sidebar,
-    AddPatient,
     EditPatient,
-    DeletePatient,
+    ViewPatient,
   },
   mounted() {
     this.fetchPatients();
@@ -91,8 +85,8 @@ export default {
     handleSelectChange(event, id) {
       let selectedAction = event.target.value;
 
-      if (selectedAction === "Delete") {
-        this.toggleDeletePatient(id);
+      if (selectedAction === "View") {
+        this.toggleViewPatient(id);
       } else if (selectedAction === "Edit") {
         this.toggleEditPatient(id);
       }
@@ -114,11 +108,11 @@ export default {
         this.$store.dispatch("fetchPatients");
       }
     },
-    toggleDeletePatient(id) {
+    toggleViewPatient(id) {
       this.$store.getters.getPatient(id);
-      this.showDeletePatient = !this.showDeletePatient;
+      this.showViewPatientModal = !this.showViewPatientModal;
 
-      if (this.showDeletePatient == false) {
+      if (this.showViewPatientModal == false) {
         this.resetSelectAction();
         this.$store.dispatch("fetchPatients");
       }
@@ -134,8 +128,8 @@ export default {
   },
 };
 </script>
-
-<style>
+  
+  <style scoped>
 #patient .patient-con {
   padding: 100px 20px 100px 100px;
 }
