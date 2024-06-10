@@ -1,12 +1,6 @@
 <template>
-  <div
-    v-if="openClose"
-    class="modal fade show"
-    tabindex="-1"
-    aria-hidden="true"
-    id="viewMedical"
-    style="display: block"
-  >
+  <div v-if="openClose" class="modal fade show" tabindex="-1" aria-hidden="true" id="viewMedical"
+    style="display: block">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
@@ -41,8 +35,8 @@
     </div>
   </div>
 </template>
-        
-    <script>
+
+<script>
 export default {
   name: "ViewMedicalRecord",
   data() {
@@ -75,11 +69,11 @@ export default {
   },
 };
 </script>
-  
-  <style scoped>
+
+<style scoped>
 #viewMedical .modal-body h4,
 #viewMedical .modal-body h6 {
-  color: var(--global-color-primary);
+  color: black;
   font-weight: 600;
 }
 
@@ -94,14 +88,21 @@ export default {
 #viewMedical .patient-information {
   margin-top: 20px;
   padding: 10px;
-  background: #e0e7ff;
+  background: rgb(196, 223, 255);;
 }
 
+.modal-body {
+  background: bisque;
+}
+.modal-footer{
+  background-color: bisque
+  ;
+}
 #viewMedical .patient-information p {
   font-size: 14px;
 }
 
-#viewMedical .patient-information > div {
+#viewMedical .patient-information>div {
   width: 50%;
 }
 </style>

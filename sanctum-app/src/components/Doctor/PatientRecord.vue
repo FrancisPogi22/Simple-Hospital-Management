@@ -6,9 +6,7 @@
     <div class="wrapper">
       <div class="patient-con">
         <div class="patient-header-con">
-          <button class="btn-primary" @click="toggleAddPatient()">
-            Add Patient
-          </button>
+        
         </div>
         <div class="table-responsive">
           <table class="table">
@@ -91,14 +89,7 @@ export default {
         this.toggleEditPatient(id);
       }
     },
-    toggleAddPatient() {
-      this.showPatientModal = !this.showPatientModal;
-
-      if (this.showPatientModal == false) {
-        this.resetSelectAction();
-        this.$store.dispatch("fetchPatients");
-      }
-    },
+   
     toggleEditPatient(id) {
       this.$store.getters.getPatient(id);
       this.showEditModal = !this.showEditModal;
@@ -140,3 +131,4 @@ export default {
   margin-bottom: 30px;
 }
 </style>
+

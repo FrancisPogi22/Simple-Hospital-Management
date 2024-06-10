@@ -3,7 +3,7 @@
   <section id="sidebar">
     <div class="sidebar-con">
       <div class="sidebar-header">
-        <p>HMS</p>
+        <p>Hospital Management System</p>
       </div>
       <div class="sidebar-nav-con">
         <ul class="sidebar-nav">
@@ -13,89 +13,52 @@
                 account_type == 1
                   ? "Admin"
                   : account_type == 2
-                  ? "Doctor"
-                  : "Patient"
+                    ? "Doctor"
+                    : "Patient"
               }}
             </p>
           </div>
-          <router-link to="/dashboard">
-            <i class="fa-solid fa-tv"></i>
-            <span>Dashboard</span>
-          </router-link>
-          <router-link
-            to="/admin/viewAppointments"
-            v-if="isAuthenticate && account_type == 1"
-          >
+          <router-link to="/admin/viewAppointments" v-if="isAuthenticate && account_type == 1">
             <i class="fa-solid fa-calendar-check"></i>
             <span>Appointments</span>
           </router-link>
-          <router-link
-            to="/admin/manageDoctors"
-            v-if="isAuthenticate && account_type == 1"
-          >
+          <router-link to="/admin/manageDoctors" v-if="isAuthenticate && account_type == 1">
             <i class="fa-solid fa-user-doctor"></i>
             <span>Manage Doctors</span>
           </router-link>
-          <router-link
-            to="/admin/managePatients"
-            v-if="isAuthenticate && account_type == 1"
-          >
+          <router-link to="/admin/managePatients" v-if="isAuthenticate && account_type == 1">
             <i class="fa-solid fa-hospital-user"></i>
             <span>Manage Patients</span>
           </router-link>
-          <router-link
-            to="/admin/medicalRecords"
-            v-if="isAuthenticate && account_type == 1"
-          >
+          <router-link to="/admin/medicalRecords" v-if="isAuthenticate && account_type == 1">
             <i class="fa-solid fa-file-medical"></i>
             <span>Medical Records</span>
           </router-link>
-          <router-link
-            to="/doctor/medicalRecord"
-            v-if="isAuthenticate && account_type == 2"
-          >
+          <router-link to="/doctor/medicalRecord" v-if="isAuthenticate && account_type == 2">
             <i class="fa-solid fa-book"></i>
             <span>Medical Record</span>
           </router-link>
-          <router-link
-            to="/doctor/manageAppointments"
-            v-if="isAuthenticate && account_type == 2"
-          >
+          <router-link to="/doctor/manageAppointments" v-if="isAuthenticate && account_type == 2">
             <i class="fa-solid fa-calendar-check"></i>
             <span>Appointments</span>
           </router-link>
-          <router-link
-            to="/doctor/managePatientRecord"
-            v-if="isAuthenticate && account_type == 2"
-          >
+          <router-link to="/doctor/managePatientRecord" v-if="isAuthenticate && account_type == 2">
             <i class="fa-solid fa-hospital-user"></i>
             <span>Patients Record</span>
           </router-link>
-          <router-link
-            to="/doctor/manageAccount"
-            v-if="isAuthenticate && account_type == 2"
-          >
+          <router-link to="/doctor/manageAccount" v-if="isAuthenticate && account_type == 2">
             <i class="fa-solid fa-address-card"></i>
             <span>My Account</span>
           </router-link>
-          <router-link
-            to="/patient/appointment"
-            v-if="isAuthenticate && account_type == 3"
-          >
+          <router-link to="/patient/appointment" v-if="isAuthenticate && account_type == 3">
             <i class="fa-solid fa-calendar-check"></i>
             <span>Appointments</span>
           </router-link>
-          <router-link
-            to="/patient/medicalRecords"
-            v-if="isAuthenticate && account_type == 3"
-          >
+          <router-link to="/patient/medicalRecords" v-if="isAuthenticate && account_type == 3">
             <i class="fa-solid fa-calendar-check"></i>
             <span>Medical Records</span>
           </router-link>
-          <router-link
-            to="/patient/viewRecord"
-            v-if="isAuthenticate && account_type == 3"
-          >
+          <router-link to="/patient/viewRecord" v-if="isAuthenticate && account_type == 3">
             <i class="fa-solid fa-circle-user"></i>
             <span>Patient Record</span>
           </router-link>
@@ -132,7 +95,7 @@ export default {
   width: 80px;
   z-index: 9;
   transition: 0.3s;
-  background: var(--global-color-primary);
+  background: rgb(196, 223, 255);
   box-shadow: var(--global-shadow);
 }
 
@@ -153,13 +116,14 @@ export default {
   opacity: 0;
   transition: 0.3s;
   display: flex;
-  align-items: center;
+  align-self: center;
+  margin-bottom: 10px;
   height: 64px;
   padding: 10px;
 }
 
 #sidebar .sidebar-header p {
-  color: var(--global-color-white);
+  color: black;
   font-weight: 600;
 }
 
@@ -187,8 +151,9 @@ export default {
   align-items: center;
   transition: opacity 0.3s, visibility 0.3s;
   opacity: 0;
-  background: #0061ff;
+  background: #f28500;
   visibility: hidden;
+
 }
 
 #sidebar .sidebar-details p {
@@ -197,18 +162,18 @@ export default {
 }
 
 #sidebar .sidebar-nav a:hover {
-  background: var(--global-color-white);
+  background: #f28500;
 }
 
 #sidebar .sidebar-nav a:hover span,
 #sidebar .sidebar-nav a:hover i {
-  color: var(--global-color-primary);
+  color: var(--global-color-white);
 }
 
 #sidebar .sidebar-nav a span {
   opacity: 0;
   visibility: hidden;
-  color: var(--global-color-white);
+  color: black;
   font-weight: 600;
   transition: opacity 0.3s, visibility 0.3s;
   font-size: 16px;
@@ -217,7 +182,7 @@ export default {
 }
 
 #sidebar .sidebar-nav a i {
-  color: var(--global-color-white);
+  color: black;
   font-size: 15px;
 }
 </style>

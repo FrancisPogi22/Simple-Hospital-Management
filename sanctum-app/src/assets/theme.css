@@ -141,7 +141,7 @@ p {
   padding: 14px 48px;
   transition: 0.2s;
   color: var(--global-color-white);
-  background: var(--global-color-primary);
+  background:#f28500;
 }
 
 .btn-primary:hover,
@@ -189,7 +189,7 @@ table td {
   left: 0;
   top: 0;
   z-index: 9;
-  background: var(--global-color-white);
+  background: bisque;
   box-shadow: var(--global-shadow);
 }
 
@@ -221,7 +221,7 @@ table td {
   font-weight: 600;
   transition: 0.2s;
   font-family: "Montserrat", sans-serif;
-  color: var(--global-color-white);
+  color: black;
 }
 
 #mobile-nav .navbar a {
