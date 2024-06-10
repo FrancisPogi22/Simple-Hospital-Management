@@ -49,7 +49,7 @@ export default {
     };
   },
   mounted() {
-    this.fetchMedicals();
+    this.getAllMedicalRecords();
   },
   components: {
     HeaderPage,
@@ -57,15 +57,15 @@ export default {
     ViewMedicalRecord,
   },
   methods: {
-    async fetchMedicals() {
-      await this.$store.dispatch("fetchMedicals");
+    async getAllMedicalRecords() {
+      await this.$store.dispatch("getAllMedicalRecords");
     },
     viewRecord(id) {
       this.$store.getters.getMedicalRecord(id);
       this.showViewRecordModal = !this.showViewRecordModal;
 
       if (this.showViewRecordModal == false) {
-        this.$store.dispatch("fetchMedicals");
+        this.$store.dispatch("getAllMedicalRecords");
       }
     },
   },

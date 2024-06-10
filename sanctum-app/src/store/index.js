@@ -148,6 +148,16 @@ export default createStore({
         alert("Error fetching doctors: " + error.message);
       }
     },
+    async getAllMedicalRecords({ state, commit }) {
+      try {
+        const response = await axios.get(
+          state.apiUrl + "/getAllMedicalRecords/"
+        );
+        commit("setMedicalRecords", response.data);
+      } catch (error) {
+        alert("Error fetching doctors: " + error.message);
+      }
+    },
     async fetchMedicals({ state, commit }, doctorId) {
       try {
         const response = await axios.get(
