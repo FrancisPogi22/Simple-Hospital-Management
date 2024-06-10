@@ -130,8 +130,6 @@ export default {
       }
     },
     async verifiedAppointment(id) {
-      this.$store.getters.getAppointment(id);
-
       this.$swal
         .fire({
           text: "Are you sure you want to mark as verified this appointment?",
@@ -145,9 +143,7 @@ export default {
           if (result.isConfirmed) {
             try {
               const response = await axios.patch(
-                this.$store.state.apiUrl +
-                  "/verifiedAppointment/" +
-                  this.$store.state.appointment.id,
+                this.$store.state.apiUrl + "/verifiedAppointment/" + id,
                 {}
               );
 
@@ -173,8 +169,6 @@ export default {
         });
     },
     async doneAppointment(id) {
-      this.$store.getters.getAppointment(id);
-
       this.$swal
         .fire({
           text: "Are you sure you want to mark as done this appointment?",
@@ -188,9 +182,7 @@ export default {
           if (result.isConfirmed) {
             try {
               const response = await axios.patch(
-                this.$store.state.apiUrl +
-                  "/doneAppointment/" +
-                  this.$store.state.appointment.id,
+                this.$store.state.apiUrl + "/doneAppointment/" + id,
                 {}
               );
 
@@ -216,8 +208,6 @@ export default {
         });
     },
     async issueMedicalRecord(id) {
-      await this.$store.getters.getAppointment(id);
-
       this.$swal
         .fire({
           text: "Are you sure you want to issue an medical record this patient?",
@@ -231,9 +221,7 @@ export default {
           if (result.isConfirmed) {
             try {
               const response = await axios.post(
-                this.$store.state.apiUrl +
-                  "/issueMedicalRecord/" +
-                    
+                this.$store.state.apiUrl + "/issueMedicalRecord/" + id,
                 {}
               );
 
