@@ -73,9 +73,6 @@ export default {
       errors: null,
     };
   },
-  mounted() {
-    console.log(this.$store.state.record);
-  },
   props: {
     visible: Boolean,
   },
@@ -92,13 +89,15 @@ export default {
       this.$emit("modal-closed");
     },
     async editMedicalRecord(id) {
+
+      this.$store.state.record[0]
       try {
         const response = await axios.patch(
           this.$store.state.apiUrl + "/editMedicalRecord/" + id,
           {
-            patient_id: this.$store.state.record.id,
-            weight: this.$store.state.record.weight,
-            height: this.$store.state.record.height,
+            patient_id: this.$store.state.record[0].id,
+            weight: this.$store.state.record[0].weight,
+            height: this.$store.state.record[0].height,
           }
         );
 
