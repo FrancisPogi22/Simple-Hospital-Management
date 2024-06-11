@@ -1,28 +1,63 @@
 <template>
-  <div v-if="openClose" class="modal fade show" tabindex="-1" aria-hidden="true" id="editDoctor" style="display: block">
+  <div
+    v-if="openClose"
+    class="modal fade show"
+    tabindex="-1"
+    aria-hidden="true"
+    id="editDoctor"
+    style="display: block"
+  >
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-body">
           <div class="field-con">
-            <input type="text" v-model="this.$store.state.patient.fullname" disabled />
+            <input
+              type="text"
+              v-model="this.$store.state.patient.fullname"
+              disabled
+            />
           </div>
           <div class="field-con">
-            <input type="text" v-model="this.$store.state.patient.address" disabled />
+            <input
+              type="text"
+              v-model="this.$store.state.patient.address"
+              disabled
+            />
           </div>
           <div class="field-con">
-            <input type="text" v-model="this.$store.state.patient.contact" disabled />
+            <input
+              type="text"
+              v-model="this.$store.state.patient.contact"
+              disabled
+            />
           </div>
           <div class="field-con">
-            <input type="email" v-model="this.$store.state.patient.email" disabled />
+            <input
+              type="email"
+              v-model="this.$store.state.patient.email"
+              disabled
+            />
           </div>
           <div class="field-con">
-            <input type="date" v-model="this.$store.state.patient.birthday" disabled />
+            <input
+              type="date"
+              v-model="this.$store.state.patient.birthday"
+              disabled
+            />
           </div>
           <div class="field-con">
-            <input type="text" v-model="this.$store.state.patient.weight" disabled />
+            <input
+              type="text"
+              v-model="this.$store.state.patient.weight"
+              disabled
+            />
           </div>
           <div class="field-con">
-            <input type="text" v-model="this.$store.state.patient.height" disabled />
+            <input
+              type="text"
+              v-model="this.$store.state.patient.height"
+              disabled
+            />
           </div>
         </div>
         <div class="modal-footer">
@@ -61,12 +96,3 @@ export default {
   },
 };
 </script>
-<style scoped>
-.modal-body {
-  background-color: rgb(196, 223, 255);
-}
-.modal-footer {
-  background-color: rgb(196, 223, 255);
-}
-
-</style>

@@ -1,12 +1,55 @@
 <template>
-  <div v-if="openClose" class="modal fade show" tabindex="-1" aria-hidden="true" id="viewProduct"
-    style="display: block">
+  <div
+    v-if="openClose"
+    class="modal fade show"
+    tabindex="-1"
+    aria-hidden="true"
+    id="viewProduct"
+    style="display: block"
+  >
     <div class="modal-dialog">
       <div class="modal-content">
-
+        <div class="modal-body">
+          <div class="field-con">
+            <input
+              type="text"
+              id="patientFullName"
+              v-model="this.$store.state.patient.fullname"
+              readonly
+            />
+          </div>
+          <div class="field-con">
+            <input
+              type="text"
+              id="patientAddress"
+              v-model="this.$store.state.patient.address"
+              readonly
+            />
+          </div>
+          <div class="field-con">
+            <input
+              type="text"
+              id="patientContact"
+              v-model="this.$store.state.patient.contact"
+              readonly
+            />
+          </div>
+          <div class="field-con">
+            <input
+              type="text"
+              id="patientEmail"
+              v-model="this.$store.state.patient.email"
+              readonly
+            />
+          </div>
+        </div>
         <div class="modal-footer">
           <button class="btn-secondary" @click="CloseModal()">Close</button>
-          <button type="button" @click="DeletePatient()" class="btn btn-primary">
+          <button
+            type="button"
+            @click="DeletePatient()"
+            class="btn btn-primary"
+          >
             Delete
           </button>
         </div>
@@ -33,8 +76,8 @@ export default {
       try {
         const response = await axios.delete(
           this.$store.state.apiUrl +
-          "/deletePatient/" +
-          this.$store.state.patient.id,
+            "/deletePatient/" +
+            this.$store.state.patient.id,
           {}
         );
 

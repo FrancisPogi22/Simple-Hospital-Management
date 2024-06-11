@@ -90,6 +90,5 @@ export default {
 
 #records .records-con {
   padding: 100px 20px 100px 100px;
-  
 }
 </style>

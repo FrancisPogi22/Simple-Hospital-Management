@@ -12,11 +12,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         User::create([
-            "fullname" => "Frazier Mhon Perez",
-            "address" => "Santa Rosa Laguna",
-            "contact" => "09123456768",
-            "email" => "fraziermhonperez@gmail.com",
-            "password" => Hash::make('12345678'),
+            "fullname" => "Francis Manuel G. Cabusas",
+            "address" => "Cabuyao Laguna",
+            "contact" => "099185753415",
+            "email" => "francistengteng10@gmail.com",
+            "password" => Hash::make('francis22'),
             "account_type" => 1,
         ]);
     }

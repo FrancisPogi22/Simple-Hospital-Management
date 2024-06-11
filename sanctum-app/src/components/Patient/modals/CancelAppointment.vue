@@ -9,7 +9,37 @@
   >
     <div class="modal-dialog">
       <div class="modal-content">
-       z
+        <div class="modal-body">
+          <div class="field-con">
+            <input
+              type="text"
+              id="fullname"
+              v-model="this.$store.state.appointment.type"
+              @input="updateFullName"
+              placeholder="Enter Full Name"
+              required
+            />
+          </div>
+          <div class="field-con">
+            <input
+              type="text"
+              id="fullname"
+              v-model="this.$store.state.appointment.fullname"
+              @input="updateFullName"
+              placeholder="Enter Full Name"
+              required
+            />
+          </div>
+          <div class="field-con">
+            <input
+              type="text"
+              id="fullname"
+              v-model="this.$store.state.appointment.date"
+              @input="updateFullName"
+              required
+            />
+          </div>
+        </div>
         <div class="modal-footer">
           <button class="btn-secondary" @click="CloseModal()">Close</button>
           <button

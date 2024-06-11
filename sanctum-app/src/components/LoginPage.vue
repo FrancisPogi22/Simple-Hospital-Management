@@ -3,17 +3,36 @@
     <div class="wrapper">
       <div class="login-container">
         <div class="login-details">
-          <h1 class="title">Hospital <span>Management</span> System</h1>
+          <h1>Hospital <span>Management</span> System</h1>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, velit
+            hic deleniti voluptatum veniam ea.
+          </p>
         </div>
         <form @submit.prevent="loginUser">
           <div class="field-con">
-            <input type="email" class="form-control" name="email" id="email" v-model="email" placeholder="Email"
-              @input="clearErrors" required />
+            <input
+              type="email"
+              class="form-control"
+              name="email"
+              id="email"
+              v-model="email"
+              placeholder="Email"
+              @input="clearErrors"
+              required
+            />
             <small class="text-danger" v-if="errors">{{ errors }}</small>
           </div>
           <div class="field-con">
-            <input type="password" class="form-control" name="password" placeholder="Password" v-model="password"
-              @input="clearErrors" required />
+            <input
+              type="password"
+              class="form-control"
+              name="password"
+              placeholder="Password"
+              v-model="password"
+              @input="clearErrors"
+              required
+            />
           </div>
           <div class="btn-con">
             <button type="submit" class="btn-primary">LOGIN</button>
@@ -23,8 +42,8 @@
     </div>
   </section>
 </template>
-
-<script>
+    
+  <script>
 import axios from "axios";
 export default {
   data() {
@@ -61,7 +80,7 @@ export default {
   },
 };
 </script>
-
+  
 <style scoped>
 #login {
   height: 100vh;
@@ -77,35 +96,82 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color:rgb(196, 223, 255);
+  background-image: url("../assets/Background.jpg");
+  background-size: cover;
+  background-position: center;
   z-index: -2;
-  
 }
 
-.title {
-  max-width: fit-content;
-  margin-left: 350px;
-  margin-top: -100px;
-  margin-bottom: 60px;
-  color: #f28500;
+#login::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: -1;
 }
 
+#login > * {
+  position: relative;
+  z-index: 1;
+}
+
+#login .wrapper {
+  max-width: 1440px;
+}
+
+#login .login-container {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  align-items: center;
+}
+
+#login .login-details {
+  max-width: 500px;
+  width: 100%;
+}
+
+#login .login-details h1,
+#login .login-details p {
+  color: var(--global-color-white);
+}
+
+#login .login-details h1 span {
+  color: var(--global-color-primary);
+}
 
 #login .login-container form {
   max-width: 500px;
   width: 100%;
   padding: 20px;
-  background-color: bisque;
+  background: var(--global-color-white);
   box-shadow: var(--global-shadow);
-  margin-left: 559px;
 }
 
+@media screen and (max-width: 767px) {
+  #login .login-container {
+    padding: 100px 0;
+    text-align: center;
+    gap: 50px;
+    flex-direction: column;
+  }
+}
 
-
-
+@media screen and (min-width: 768px) {
+  #login .login-container {
+    padding: 100px 0;
+    text-align: center;
+    gap: 50px;
+    flex-direction: column;
+  }
+}
 
 @media screen and (min-width: 1024px) {
   #login .login-container {
+    flex-direction: row;
     padding: 200px 0;
     text-align: left;
   }

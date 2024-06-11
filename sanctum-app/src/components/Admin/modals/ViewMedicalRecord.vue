@@ -79,7 +79,7 @@ export default {
   <style scoped>
 #viewMedical .modal-body h4,
 #viewMedical .modal-body h6 {
-  color: black;
+  color: var(--global-color-primary);
   font-weight: 600;
 }
 
@@ -94,7 +94,7 @@ export default {
 #viewMedical .patient-information {
   margin-top: 20px;
   padding: 10px;
-  background-color: rgb(196, 223, 255);
+  background: #e0e7ff;
 }
 
 #viewMedical .patient-information p {
@@ -103,12 +103,5 @@ export default {
 
 #viewMedical .patient-information > div {
   width: 50%;
-}
-.modal-body {
-  background: bisque;
-}
-.modal-footer{
-  background-color: bisque
-  ;
 }
 </style>
