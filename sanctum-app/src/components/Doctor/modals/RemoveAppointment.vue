@@ -24,7 +24,7 @@
             <input
               type="text"
               id="fullname"
-              v-model="this.$store.state.appointment.status"
+              v-model="this.$store.state.appointment.fullname"
               @input="updateFullName"
               placeholder="Enter Full Name"
               required
@@ -79,7 +79,7 @@ export default {
         const response = await axios.delete(
           this.$store.state.apiUrl +
             "/removeAppointment/" +
-            this.$store.state.appointment.id,
+            this.$store.state.appointment.appointment_id,
           {}
         );
 
