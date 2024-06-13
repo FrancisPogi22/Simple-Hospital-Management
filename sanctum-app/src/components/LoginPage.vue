@@ -2,13 +2,6 @@
   <section id="login">
     <div class="wrapper">
       <div class="login-container">
-        <div class="login-details">
-          <h1>Hospital <span>Management</span> System</h1>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, velit
-            hic deleniti voluptatum veniam ea.
-          </p>
-        </div>
         <form @submit.prevent="loginUser">
           <div class="field-con">
             <input
@@ -17,7 +10,7 @@
               name="email"
               id="email"
               v-model="email"
-              placeholder="Email"
+              placeholder="Email Address"
               @input="clearErrors"
               required
             />
@@ -35,7 +28,7 @@
             />
           </div>
           <div class="btn-con">
-            <button type="submit" class="btn-primary">LOGIN</button>
+            <button type="submit" class="btn-primary">SIGN IN</button>
           </div>
         </form>
       </div>
@@ -89,19 +82,6 @@ export default {
   padding: 0;
 }
 
-#login::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("../assets/Background.jpg");
-  background-size: cover;
-  background-position: center;
-  z-index: -2;
-}
-
 #login::after {
   content: "";
   position: absolute;
@@ -147,6 +127,7 @@ export default {
   max-width: 500px;
   width: 100%;
   padding: 20px;
+  border-radius: 20px;
   background: var(--global-color-white);
   box-shadow: var(--global-shadow);
 }

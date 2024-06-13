@@ -3,7 +3,7 @@
   <section id="sidebar">
     <div class="sidebar-con">
       <div class="sidebar-header">
-        <p>HMS</p>
+        
       </div>
       <div class="sidebar-nav-con">
         <ul class="sidebar-nav">
@@ -132,7 +132,7 @@ export default {
   width: 80px;
   z-index: 9;
   transition: 0.3s;
-  background: var(--global-color-primary);
+  background: #22c55e;
   box-shadow: var(--global-shadow);
 }
 
@@ -187,7 +187,6 @@ export default {
   align-items: center;
   transition: opacity 0.3s, visibility 0.3s;
   opacity: 0;
-  background: #0061ff;
   visibility: hidden;
 }
 
@@ -202,7 +201,7 @@ export default {
 
 #sidebar .sidebar-nav a:hover span,
 #sidebar .sidebar-nav a:hover i {
-  color: var(--global-color-primary);
+  color: #888888;
 }
 
 #sidebar .sidebar-nav a span {

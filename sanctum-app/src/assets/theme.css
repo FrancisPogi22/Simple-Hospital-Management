@@ -139,9 +139,10 @@ p {
   font-weight: 600;
   font-family: "Montserrat", sans-serif;
   padding: 14px 48px;
+  border-radius: 20px;
   transition: 0.2s;
   color: var(--global-color-white);
-  background: var(--global-color-primary);
+  background: #22c55e;
 }
 
 .btn-primary:hover,
